@@ -1,6 +1,6 @@
 spring:
   application:
-    name: blog
+    name: sticker
   profiles:
     active: dev
   config:
