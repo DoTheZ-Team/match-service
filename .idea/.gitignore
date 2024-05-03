@@ -1,0 +1,17 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+
+src/main/java/com/justdo/glue/sticker/domain/member/
+src/main/java/com/justdo/glue/sticker/domain/post/
+src/main/java/com/justdo/glue/sticker/domain/subscription/
+src/main/java/com/justdo/glue/sticker/domain/sticker/controller/SubscriptionController.java
+src/main/java/com/justdo/glue/sticker/domain/sticker/dto/SubscriptionResponse.java
+src/main/java/com/justdo/glue/sticker/domain/sticker/service/SubscriptionQueryService.java
+src/main/java/com/justdo/glue/sticker/domain/sticker/service/StickerCommandService.java
