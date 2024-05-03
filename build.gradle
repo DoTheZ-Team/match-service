@@ -26,12 +26,13 @@ ext {
 }
 
 dependencies {
+	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -43,19 +44,14 @@ dependencies {
 	// open feign
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
-	// jwt
-	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.12.5'
-	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.12.5'
-	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.12.5'
-
 	// swagger
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.2.0'
 
 	// HttpClient for sending requests
-	implementation 'org.apache.httpcomponents.client5:httpclient5:5.1.2'
+	implementation 'org.apache.httpcomponents.client5:httpclient5'
 
 	// Jackson for JSON handling
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.4'
 
 	// chatGPT
 	implementation 'com.theokanning.openai-gpt3-java:client:0.10.0'
@@ -64,6 +60,10 @@ dependencies {
 	implementation 'com.stripe:stripe-java:22.10.0'
 	implementation 'javax.xml.bind:jaxb-api:2.3.0'
 	implementation 'sh.platform:config:2.2.2'
+
+	// H2
+	implementation 'com.h2database:h2'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 }
 
 dependencyManagement {

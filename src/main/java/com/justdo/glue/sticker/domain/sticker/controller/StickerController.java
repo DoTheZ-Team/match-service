@@ -5,7 +5,6 @@ import com.justdo.glue.sticker.domain.sticker.dto.StickerResponse.StickerGenerat
 import com.justdo.glue.sticker.domain.sticker.service.StickerCommandService;
 import com.justdo.glue.sticker.domain.sticker.service.StickerQueryService;
 import com.justdo.glue.sticker.global.response.ApiResponse;
-import com.justdo.glue.sticker.global.utils.JwtProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sticker")
 public class StickerController {
 
-    private final JwtProvider jwtProvider;
     private final StickerCommandService stickerCommandService;
     private final StickerQueryService stickerQueryService;
 
@@ -35,7 +33,6 @@ public class StickerController {
                                                               @RequestParam(name = "prompt") String prompt,
                                                               @RequestParam(name = "style", required = false) String style) {
 
-        Long requesterId = jwtProvider.getUserIdFromToken(request);
 
         return ApiResponse.onSuccess(stickerCommandService.generateAndSaveSticker(prompt, style));
     }
@@ -46,7 +43,6 @@ public class StickerController {
     public ApiResponse<StickerItem> getSticker(HttpServletRequest request,
                                                                  @PathVariable(name = "stickerId") Long stickerId) {
 
-        Long memberId = jwtProvider.getUserIdFromToken(request);
 
         return ApiResponse.onSuccess(stickerQueryService.getStickerById(stickerId));
     }

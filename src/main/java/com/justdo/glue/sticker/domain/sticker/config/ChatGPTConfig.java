@@ -4,12 +4,13 @@ import com.theokanning.openai.service.OpenAiService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import java.time.Duration;
 
 @Configuration
 public class ChatGPTConfig {
-    @Value("${openai.key}")
+    @Value("sk-proj-4LuhaFFX1MCGjAcbSLDOT3BlbkFJmlGVm6YU1njSWenVhu9U")
     private String apiKey;
 
 
