@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.bind.SchemaOutputResolver;
+
 import static com.justdo.glue.sticker.domain.sticker.dto.StickerResponse.*;
 
 @Service
@@ -47,7 +49,7 @@ public class StickerCommandService {
 
     private StickerItem saveSticker(Sticker sticker) {
         StickerItem savedSticker = stickerQueryService.saveSticker(sticker);
-        return toSticker(savedSticker.getStickerId(), savedSticker.getUrl());
+        return toStickerItem(savedSticker.getStickerId(), savedSticker.getUrl());
     }
 
 }

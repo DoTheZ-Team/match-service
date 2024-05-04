@@ -48,7 +48,7 @@ public class StickerResponse {
 
     }
 
-    public static StickerItem toSticker(Long id, String url){
+    public static StickerItem toStickerItem(Long id, String url){
         return StickerItem.builder()
                 .stickerId(id)
                 .url(url)

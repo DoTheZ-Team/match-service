@@ -26,9 +26,10 @@ public class StickerQueryService {
         Sticker sticker = stickerRepository.findById(id)
                 .orElseThrow(() -> new ApiException(_STICKER_NOT_FOUND));
 
-        return toSticker(sticker.getId(), sticker.getUrl());
+        return toStickerItem(sticker.getId(), sticker.getUrl());
     }
 
+    @Transactional
     public StickerItem saveSticker(Sticker sticker) {
         Sticker savedSticker = stickerRepository.save(sticker);
 
@@ -36,6 +37,7 @@ public class StickerQueryService {
             throw new ApiException(_STICKER_NOT_SAVED);
         }
 
-        return toSticker(savedSticker.getId(), savedSticker.getUrl());
+        System.out.println(savedSticker.getId());  // 로그에 StickerItem 객체 출력
+        return toStickerItem(savedSticker.getId(), savedSticker.getUrl());
     }
 }

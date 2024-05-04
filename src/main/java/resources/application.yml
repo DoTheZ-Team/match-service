@@ -13,8 +13,7 @@ spring:
     driver-class-name: org.h2.Driver
     #url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
     url: 'jdbc:h2:~/test'    # H2 DB 연결 주소 (Embedded Mode)
-    username: root        # H2 DB 접속 ID (사용자 지정)
-    password: 1234        # H2 DB 접속 PW (사용자 지정)
+    username: sa        # H2 DB 접속 ID (사용자 지정)
 
   # H2 Console 설정
   h2:
@@ -35,4 +34,4 @@ spring:
 
 # openAI key
 openai:
-  key: "sk-proj-4LuhaFFX1MCGjAcbSLDOT3BlbkFJmlGVm6YU1njSWenVhu9U"
+  key: "****"
