@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-//@EnableFeignClients
-//@EnableDiscoveryClient
 public class StickerApplication {
 
 	public static void main(String[] args) {
