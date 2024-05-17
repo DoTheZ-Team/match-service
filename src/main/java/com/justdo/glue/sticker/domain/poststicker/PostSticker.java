@@ -15,11 +15,17 @@ public class PostSticker extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "DOUBLE")
-    private Double x_location;
+    @Column(nullable = false, columnDefinition = "BIGINT")
+    private Long postId;
+
+    @Column(nullable = false, columnDefinition = "BIGINT")
+    private Long stickerId;
 
     @Column(nullable = false, columnDefinition = "DOUBLE")
-    private Double y_location;
+    private Double xLocation;
+
+    @Column(nullable = false, columnDefinition = "DOUBLE")
+    private Double yLocation;
 
     @Column(nullable = false, columnDefinition = "DOUBLE")
     private Double width;
@@ -29,10 +35,4 @@ public class PostSticker extends BaseTimeEntity {
 
     @Column(nullable = false, columnDefinition = "DOUBLE")
     private Double angle;
-
-    @Column(nullable = false, columnDefinition = "BIGINT")
-    private Long post_id;
-
-    @Column(nullable = false, columnDefinition = "BIGINT")
-    private Long sticker_id;
 }
