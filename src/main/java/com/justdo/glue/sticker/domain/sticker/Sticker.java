@@ -4,13 +4,12 @@ import com.justdo.glue.sticker.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@Table(name = "Sticker")
+@Entity
 public class Sticker extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +18,9 @@ public class Sticker extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String url;
 
-    // TODO: 뭘 위한 field인지 모르겠음.
-    //private String type;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String prompt;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String style;
 }
