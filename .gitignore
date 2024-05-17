@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+application-SECRET-KEY.yml
+.DS_Store
+

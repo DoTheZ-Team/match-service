@@ -10,7 +10,7 @@ import java.time.Duration;
 
 @Configuration
 public class ChatGPTConfig {
-    @Value("${openai.key}")
+    @Value("${api-key}")
     private String apiKey;
 
     @Bean
