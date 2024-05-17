@@ -1,0 +1,31 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: sticker-service
+  profiles:
+    active: dev, secret-key
+  config:
+    import: "optional:configserver:http://localhost:8888"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/glue
+    username: root
+    password: mymac1009
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 10
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+  logging.level:
+    org.hibernate.SQL: debug
