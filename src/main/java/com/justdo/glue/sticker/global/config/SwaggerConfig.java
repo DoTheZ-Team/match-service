@@ -37,9 +37,8 @@ public class SwaggerConfig {
 
     private Info apiInfo() {
         return new Info()
-            .title("Glue Sticker-Service Springdoc 테스트")
-            .description("Springdoc을 사용한 Glue Sticker-Service UI 테스트")
+            .title("Glue Blog-Service Springdoc 테스트")
+            .description("Springdoc을 사용한 Glue Blog-Service UI 테스트")
             .version("1.0.0");
     }
 }
-

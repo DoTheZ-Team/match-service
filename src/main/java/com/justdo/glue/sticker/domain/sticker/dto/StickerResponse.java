@@ -21,7 +21,7 @@ public class StickerResponse {
         @Schema(description = "스티커 타입(사진 또는 스티커형식)")
         private String stickerType;
 
-        @Schema(description = "url이 아닌 base64 형태로 저장")
+        @Schema(description = "정확히는 url이 아닌 base64 형태로 저장")
         private String stickerUrl;
 
     }
@@ -43,22 +43,15 @@ public class StickerResponse {
     @Setter
     public static class StickerItem{
         private Long stickerId;
-
-        @Schema(description = "url이 아닌 base64 형태로 저장")
+        @Schema(description = "정확히는 url이 아닌 base64 형태로 저장")
         private String url;
-
-        private String prompt;
-
-        private String style;
 
     }
 
-    public static StickerItem toStickerItem(Long id, String url, String prompt, String style){
+    public static StickerItem toStickerItem(Long id, String url){
         return StickerItem.builder()
                 .stickerId(id)
                 .url(url)
-                .prompt(prompt)
-                .style(style)
                 .build();
     }
 }
