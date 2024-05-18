@@ -12,7 +12,6 @@ import java.time.Duration;
 public class ChatGPTConfig {
     @Value("${api-key}")
     private String apiKey;
-
     
     @Bean
     public OpenAiService getOpenAiService() {
