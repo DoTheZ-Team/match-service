@@ -13,6 +13,7 @@ public class ChatGPTConfig {
     @Value("${api-key}")
     private String apiKey;
 
+    
     @Bean
     public OpenAiService getOpenAiService() {
         return new OpenAiService(apiKey, Duration.ofSeconds(30));
