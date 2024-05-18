@@ -39,3 +39,5 @@ out/
 application-SECRET-KEY.yml
 .DS_Store
 /.gradle
+
+application.yml
