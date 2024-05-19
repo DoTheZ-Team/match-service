@@ -16,8 +16,8 @@ public class MemberSticker extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false, columnDefinition = "BIGINT")
-    private Long member_id;
+    private Long memberId;
 
     @Column(nullable = false, columnDefinition = "BIGINT")
-    private Long sticker_id;
+    private Long stickerId;
 }
