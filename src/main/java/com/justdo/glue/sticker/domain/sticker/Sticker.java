@@ -15,7 +15,7 @@ public class Sticker extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String url;
 
     @Column(nullable = false, columnDefinition = "TEXT")
