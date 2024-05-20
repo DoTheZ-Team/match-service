@@ -26,13 +26,11 @@ public class StickerController {
     //TODO: 사진 생성 횟수 초과시 막는 로직 필요
     @Operation(summary = "이미지 생성 요청", description = "사용자의 요청에 따라 이미지를 생성합니다.")
     @Parameter(name = "prompt", description = "이미지 생성에 사용될 키워드, Query Parameter입니다.", required = true, example = "cat", in = ParameterIn.QUERY)
-    @Parameter(name = "style", description = "이미지 스타일, Query Parameter입니다.", required = false, example = "Emoticon", in = ParameterIn.QUERY)
     @PostMapping("/create")
     public ApiResponse<StickerItem> createImage(HttpServletRequest request,
-                                                @RequestParam(name = "prompt") String prompt,
-                                                @RequestParam(name = "style", required = false) String style) {
+                                                @RequestParam(name = "prompt") String prompt) {
 
-        return ApiResponse.onSuccess(stickerCommandServiceImpl.generateAndSaveSticker(prompt, style));
+        return ApiResponse.onSuccess(stickerCommandServiceImpl.generateAndSaveSticker(prompt));
     }
 
     @Operation(summary = "스티커 이미지 조회", description = "사용자가 생성한 스티커를 조회합니다.")
@@ -42,5 +40,13 @@ public class StickerController {
                                                @PathVariable(name = "stickerId") Long stickerId) {
 
         return ApiResponse.onSuccess(stickerQueryServiceImpl.getStickerById(stickerId));
+    }
+
+    @Operation(summary = "스티커 이미지 삭제", description = "사용자가 생성한 스티커를 삭제합니다.")
+    @Parameter(name = "stickerId", description = "스티커 Id, Path Variable입니다.", required = true, example = "1", in = ParameterIn.PATH)
+    // 스티커 삭제 요청
+    @DeleteMapping("/{stickerId}")
+    public ApiResponse<String> deleteSticker(@PathVariable Long stickerId) {
+        return ApiResponse.onSuccess(stickerCommandServiceImpl.deleteSticker(stickerId));
     }
 }

@@ -20,7 +20,4 @@ public class Sticker extends BaseTimeEntity {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String prompt;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String style;
 }
