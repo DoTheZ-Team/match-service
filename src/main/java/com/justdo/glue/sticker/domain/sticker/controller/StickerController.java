@@ -32,6 +32,7 @@ public class StickerController {
 
         return ApiResponse.onSuccess(stickerCommandServiceImpl.generateAndSaveSticker(prompt));
     }
+    
 
     @Operation(summary = "스티커 이미지 조회", description = "사용자가 생성한 스티커를 조회합니다.")
     @Parameter(name = "stickerId", description = "스티커 Id, Path Variable입니다.", required = true, example = "1", in = ParameterIn.PATH)
