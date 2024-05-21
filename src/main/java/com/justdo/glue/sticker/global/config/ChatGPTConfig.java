@@ -1,4 +1,4 @@
-package com.justdo.glue.sticker.domain.sticker.config;
+package com.justdo.glue.sticker.global.config;
 
 import com.theokanning.openai.service.OpenAiService;
 import org.springframework.beans.factory.annotation.Value;

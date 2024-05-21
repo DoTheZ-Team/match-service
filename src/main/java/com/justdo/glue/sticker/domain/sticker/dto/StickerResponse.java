@@ -18,19 +18,15 @@ public class StickerResponse {
         @Schema(description = "사용자가 작성한 프롬프트")
         private String stickerPrompt;
 
-        @Schema(description = "스티커 타입(사진 또는 스티커형식)")
-        private String stickerType;
-
         @Schema(description = "url이 아닌 base64 형태로 저장")
         private String stickerUrl;
 
     }
 
-    public static StickerGenerationResult toStickerGenerationResult(String stickerPrompt, String stickerType, String stickerUrl) {
+    public static StickerGenerationResult toStickerGenerationResult(String stickerPrompt, String stickerUrl) {
 
         return StickerGenerationResult.builder()
                 .stickerPrompt(stickerPrompt)
-                .stickerType(stickerType)
                 .stickerUrl(stickerUrl)
                 .build();
     }
@@ -49,16 +45,13 @@ public class StickerResponse {
 
         private String prompt;
 
-        private String style;
-
     }
 
-    public static StickerItem toStickerItem(Long id, String url, String prompt, String style){
+    public static StickerItem toStickerItem(Long id, String url, String prompt){
         return StickerItem.builder()
                 .stickerId(id)
                 .url(url)
                 .prompt(prompt)
-                .style(style)
                 .build();
     }
 }

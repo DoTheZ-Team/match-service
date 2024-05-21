@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static com.justdo.glue.sticker.domain.sticker.dto.StickerResponse.*;
-import static com.justdo.glue.sticker.global.response.code.status.ErrorStatus._STICKER_NOT_FOUND;
-import static com.justdo.glue.sticker.global.response.code.status.ErrorStatus._STICKER_NOT_SAVED;
+import static com.justdo.glue.sticker.global.response.code.status.ErrorStatus.*;
 
 
 @Service
@@ -26,7 +25,7 @@ public class StickerQueryServiceImpl implements StickerQueryService {
         Sticker sticker = stickerRepository.findById(id)
                 .orElseThrow(() -> new ApiException(_STICKER_NOT_FOUND));
 
-        return toStickerItem(sticker.getId(), sticker.getUrl(), sticker.getPrompt(), sticker.getStyle());
+        return toStickerItem(sticker.getId(), sticker.getUrl(), sticker.getPrompt());
     }
 
     @Override
@@ -35,6 +34,15 @@ public class StickerQueryServiceImpl implements StickerQueryService {
         Sticker savedSticker = Optional.ofNullable(stickerRepository.save(sticker))
                 .orElseThrow(() -> new ApiException(_STICKER_NOT_SAVED));
 
-        return toStickerItem(savedSticker.getId(), savedSticker.getUrl(), sticker.getPrompt(), sticker.getStyle());
+        return toStickerItem(savedSticker.getId(), savedSticker.getUrl(), sticker.getPrompt());
+    }
+
+    @Transactional
+    public void deleteSticker(Sticker sticker) {
+        try {
+            stickerRepository.delete(sticker);
+        } catch (Exception e) {
+            throw new ApiException(_STICKER_NOT_DELETED);
+        }
     }
 }
