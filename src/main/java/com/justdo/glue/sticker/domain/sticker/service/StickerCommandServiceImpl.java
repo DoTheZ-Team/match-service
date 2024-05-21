@@ -96,13 +96,12 @@ public class StickerCommandServiceImpl implements StickerCommandService {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response);
 
-        if (response.statusCode() == 200) {
-            Map<String, Object> responseMap = objectMapper.readValue(response.body(), Map.class);
-            List<Map<String, String>> data = (List<Map<String, String>>) responseMap.get("data");
-            return data.get(0).get("b64_json");
-        } else {
+        if (response.statusCode() != 200)
             throw new RuntimeException("Failed to generate image: " + response.body());
-        }
+
+        Map<String, Object> responseMap = objectMapper.readValue(response.body(), Map.class);
+        List<Map<String, String>> data = (List<Map<String, String>>) responseMap.get("data");
+        return data.get(0).get("b64_json");
     }
 
     private StickerItem saveSticker(Sticker sticker) {
@@ -114,8 +113,6 @@ public class StickerCommandServiceImpl implements StickerCommandService {
     @Transactional
     public String deleteSticker(Long stickerId) {
         StickerItem sticker = stickerQueryService.getStickerById(stickerId);
-        // 권한이 부족해서 삭제가 안됨 ㅎㅎ..;
-        // s3Service.deleteImage(sticker.getUrl());
 
         Sticker deleteSticker = Sticker.builder()
                 .url(sticker.getUrl())

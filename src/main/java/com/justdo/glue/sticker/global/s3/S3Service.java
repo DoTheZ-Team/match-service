@@ -58,12 +58,12 @@ public class S3Service {
 
         try (InputStream inputStream = new ByteArrayInputStream(imageBytes)) {
             amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata));
-            // 업로드된 파일의 URL 생성
-            return getPublicUrl(fileName);
         } catch (IOException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "파일 업로드에 실패했습니다.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
         }
+
+        // 업로드된 파일의 URL 생성
+        return getPublicUrl(fileName);
     }
 
     // 업로드된 파일의 URL 생성
@@ -80,30 +80,10 @@ public class S3Service {
     // URL에서 파일 이름 추출
     private String extractFileNameFromUrl(String url) {
         String prefix = String.format("https://%s.s3.%s.amazonaws.com/", bucket, region);
-        if (url.startsWith(prefix)) {
-            return url.substring(prefix.length());
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 URL 형식입니다.");
-        }
-    }
 
-//    // 이미지 삭제
-//    public void deleteFile(String fileName) {
-//        try {
-//            String s3File = extractImageFromUrl(fileName);
-//            amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, s3File));
-//        } catch (AmazonS3Exception e) {
-//            throw new ApiException(ErrorStatus._S3_IMAGE_NOT_FOUND);
-//        }
-//    }
-//
-//    // S3 주소에 이미지 URL 추출
-//    private String extractImageFromUrl(String imgUrl) {
-//        String bucketPrefix = "https://" + bucket + ".s3." + region + ".amazonaws.com/";
-//        if (imgUrl.startsWith(bucketPrefix)) {
-//            return imgUrl.substring(bucketPrefix.length());
-//        } else {
-//            throw new ApiException(ErrorStatus._S3_IMAGE_NOT_FOUND);
-//        }
-//    }
+        if (!url.startsWith(prefix))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 URL 형식입니다.");
+
+        return url.substring(prefix.length());
+    }
 }
