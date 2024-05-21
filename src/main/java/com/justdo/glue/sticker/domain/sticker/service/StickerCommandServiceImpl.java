@@ -59,7 +59,10 @@ public class StickerCommandServiceImpl implements StickerCommandService {
     // DALL-E API를 통해 이미지를 생성하고 S3에 업로드 후 URL 반환
     private StickerGenerationResult generation(String stickerPrompt) {
 
-        stickerPrompt = "애플 이모티콘 스타일로" + stickerPrompt + "에 해당하는 이모티콘을 귀엽게 만들어줘.";
+        stickerPrompt = "Create an emoji in the style of Apple's emojis, themed around '" + stickerPrompt +
+                "'. The emoji should be cute, illustrated (not realistic), and without thick outlines. " +
+                "It is crucial that the entire background of the emoji, excluding the emoji itself, is plain white. " +
+                "Design the emoji with a 1:1 aspect ratio.";
 
         try {
             String b64Image = generateImage(stickerPrompt);
@@ -101,21 +104,6 @@ public class StickerCommandServiceImpl implements StickerCommandService {
             throw new RuntimeException("Failed to generate image: " + response.body());
         }
     }
-//    private StickerGenerationResult generation(String stickerPrompt) {
-////        stickerPrompt = "애플 이모티콘 스타일로" + stickerPrompt + "에 해당하는 이모티콘을 귀엽게 만들어줘.";
-////        CreateImageRequest createImageRequest = CreateImageRequest.builder()
-////                .prompt(stickerPrompt)
-////                //.model("dall-e-3")
-////                .size("1024x1024")
-////                .n(1)
-////                .responseFormat("b64_json")
-////                .build();
-////
-////        String b64 = openAiService.createImage(createImageRequest).getData().get(0).getB64Json();
-////        String s3Url = s3Service.uploadBase64Image(b64, "generated-sticker.png");
-////
-////        return StickerResponse.toStickerGenerationResult(stickerPrompt, s3Url);
-//    }
 
     private StickerItem saveSticker(Sticker sticker) {
         StickerItem savedSticker = stickerQueryService.saveSticker(sticker);
