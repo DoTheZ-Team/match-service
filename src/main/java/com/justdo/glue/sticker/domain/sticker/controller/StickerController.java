@@ -37,6 +37,7 @@ public class StickerController {
 
         Long memberId = jwtProvider.getUserIdFromToken(request);
 
+
         return ApiResponse.onSuccess(stickerCommandService.generateAndSaveSticker(prompt, memberId));
     }
 
