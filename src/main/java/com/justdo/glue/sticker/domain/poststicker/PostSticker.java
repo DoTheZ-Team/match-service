@@ -21,18 +21,18 @@ public class PostSticker extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "BIGINT")
     private Long stickerId;
 
-    @Column(nullable = false, columnDefinition = "DOUBLE")
-    private Double xLocation;
+    @Column(nullable = false, columnDefinition = "INT")
+    private int xLocation;
 
-    @Column(nullable = false, columnDefinition = "DOUBLE")
-    private Double yLocation;
+    @Column(nullable = false, columnDefinition = "INT")
+    private int yLocation;
 
-    @Column(nullable = false, columnDefinition = "DOUBLE")
-    private Double width;
+    @Column(nullable = false, columnDefinition = "INT")
+    private int width;
 
-    @Column(nullable = false, columnDefinition = "DOUBLE")
-    private Double height;
+    @Column(nullable = false, columnDefinition = "INT")
+    private int height;
 
-    @Column(nullable = false, columnDefinition = "DOUBLE")
-    private Double angle;
+    @Column(nullable = false, columnDefinition = "INT")
+    private int angle;
 }

@@ -27,26 +27,26 @@ public class PostStickerDTO {
 
         @Schema(description = "스티커의 x_location")
         @JsonProperty("xLocation")
-        private Double xLocation;
+        private int xLocation;
 
         @Schema(description = "스티커의 y_location")
         @JsonProperty("yLocation")
-        private Double yLocation;
+        private int yLocation;
 
         @Schema(description = "스티커의 width")
         @JsonProperty("width")
-        private Double width;
+        private int width;
 
         @Schema(description = "스티커의 height")
         @JsonProperty("height")
-        private Double height;
+        private int height;
 
         @Schema(description = "스티커의 angle")
         @JsonProperty("angle")
-        private Double angle;
+        private int angle;
     }
 
-    public static PostStickerDTO.PostStickerItem toPostStickerItem(Long postStickerId, Long stickerId, Long postId, Double xLocation, Double yLocation, Double width, Double height, Double angle) {
+    public static PostStickerDTO.PostStickerItem toPostStickerItem(Long postStickerId, Long stickerId, Long postId, int xLocation, int yLocation, int width, int height, int angle) {
         return PostStickerItem.builder()
                 .postStickerId(postStickerId)
                 .postId(postId)

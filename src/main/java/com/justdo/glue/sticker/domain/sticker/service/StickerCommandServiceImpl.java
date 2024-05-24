@@ -45,7 +45,7 @@ public class StickerCommandServiceImpl implements StickerCommandService {
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/images/generations";
 
     @Override
-    public StickerItem generateAndSaveSticker(String stickerPrompt) {
+    public StickerItem generateAndSaveSticker(String stickerPrompt, Long memberId) {
         StickerGenerationResult generatedResult = generation(stickerPrompt);
 
         Sticker newSticker = Sticker.builder()
@@ -53,7 +53,7 @@ public class StickerCommandServiceImpl implements StickerCommandService {
                 .prompt(generatedResult.getStickerPrompt())
                 .build();
 
-        return saveSticker(newSticker);
+        return saveSticker(newSticker, memberId);
     }
 
     // DALL-E API를 통해 이미지를 생성하고 S3에 업로드 후 URL 반환
@@ -104,14 +104,14 @@ public class StickerCommandServiceImpl implements StickerCommandService {
         return data.get(0).get("b64_json");
     }
 
-    private StickerItem saveSticker(Sticker sticker) {
-        StickerItem savedSticker = stickerQueryService.saveSticker(sticker);
+    private StickerItem saveSticker(Sticker sticker, Long memberId) {
+        StickerItem savedSticker = stickerQueryService.saveSticker(sticker, memberId);
         return toStickerItem(savedSticker.getStickerId(), savedSticker.getUrl(), savedSticker.getPrompt());
     }
 
     // 스티커와 관련된 이미지 삭제
     @Transactional
-    public String deleteSticker(Long stickerId) {
+    public String deleteSticker(Long stickerId, Long memberId) {
         StickerItem sticker = stickerQueryService.getStickerById(stickerId);
 
         Sticker deleteSticker = Sticker.builder()
@@ -119,7 +119,7 @@ public class StickerCommandServiceImpl implements StickerCommandService {
                 .prompt(sticker.getPrompt())
                 .build();
 
-        stickerQueryService.deleteSticker(deleteSticker);
+        stickerQueryService.deleteSticker(deleteSticker, memberId);
         return "스티커가 성공적으로 삭제되었습니다.";
     }
 }

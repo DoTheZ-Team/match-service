@@ -37,7 +37,7 @@ public class PostStickerQueryServiceImpl implements PostStickerQueryService{
     @Override
     @Transactional
     public PostStickerDTO.PostStickerItem savePostSticker(PostSticker postSticker) {
-        PostSticker savedPostSticker = Optional.ofNullable(postStickerRepository.save(postSticker))
+        PostSticker savedPostSticker = Optional.of(postStickerRepository.save(postSticker))
                 .orElseThrow(() -> new ApiException(_STICKER_POST_NOT_SAVED));
 
         return toPostStickerItem(savedPostSticker.getId(), savedPostSticker.getPostId(), savedPostSticker.getStickerId(), savedPostSticker.getXLocation(), savedPostSticker.getYLocation(), savedPostSticker.getWidth(), savedPostSticker.getHeight(), savedPostSticker.getAngle());

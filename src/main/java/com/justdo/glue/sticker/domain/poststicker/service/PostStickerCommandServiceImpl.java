@@ -14,7 +14,7 @@ public class PostStickerCommandServiceImpl implements PostStickerCommandService{
     private final PostStickerRepository postStickerRepository;
     private final PostStickerQueryServiceImpl postStickerQueryService;
     @Override
-    public PostStickerDTO.PostStickerItem BuildPostSticker(Long postId, Long stickerId, Double xLocation, Double yLocation, Double width, Double height, Double angle) {
+    public PostStickerDTO.PostStickerItem BuildPostSticker(Long postId, Long stickerId, int xLocation, int yLocation, int width, int height, int angle) {
         PostSticker newPostSticker = PostSticker.builder()
                 .postId(postId)
                 .stickerId(stickerId)

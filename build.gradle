@@ -65,6 +65,11 @@ dependencies {
 	// H2
 	implementation 'com.h2database:h2'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+	// jwt
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.12.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.12.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.12.5'
 }
 
 dependencyManagement {
