@@ -29,14 +29,14 @@ public class StickerController {
 
     //TODO: 달리 api 파라미터 값에 따른 parameter 추가 수정 필요
     //TODO: 사진 생성 횟수 초과시 막는 로직 필요
-    @Operation(summary = "sticker 이미지 생성 요청", description = "사용자의 요청에 따라 sticker를 생성합니다.")
+    @Operation(summary = "스티커 이미지 생성 요청", description = "사용자의 요청에 따라 sticker를 생성합니다.")
     @Parameter(name = "prompt", description = "이미지 생성에 사용될 키워드, Request Body Parameter입니다.", required = true, example = "cat")
     @PostMapping("")
     public ApiResponse<StickerItem> createImage(HttpServletRequest request,
                                                 @RequestBody String prompt) {
 
         Long memberId = jwtProvider.getUserIdFromToken(request);
-        
+
         return ApiResponse.onSuccess(stickerCommandService.generateAndSaveSticker(prompt, memberId));
     }
 

@@ -38,7 +38,7 @@ public class MemberStickerController {
     @Parameter(name = "memberId", description = "사용자 id, Query Parameter입니다.", required = true, example = "1", in = ParameterIn.QUERY)
     @Parameter(name = "page", description = "페이지 번호, Query Parameter입니다.", required = true, example = "0", in = ParameterIn.QUERY)
     @Parameter(name = "size", description = "페이지 크기, Query Parameter입니다.", required = true, example = "10", in = ParameterIn.QUERY)
-    @GetMapping("/pages")
+    @GetMapping("/users/pages")
     public ApiResponse<Page<MemberStickerItems>> getSpecificMemberStickersPage(HttpServletRequest request,
                                                                                @RequestParam(name = "page") int page,
                                                                                @RequestParam(name = "size") int size) {
