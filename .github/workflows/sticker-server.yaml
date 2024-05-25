@@ -3,8 +3,6 @@ name: Glue Sticker Server CI/CD
 on:
   push:
     branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
 
 permissions:
   contents: read
