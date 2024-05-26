@@ -1,8 +1,11 @@
 package com.justdo.glue.sticker.domain.poststicker.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.justdo.glue.sticker.domain.sticker.dto.StickerResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+
+import java.util.List;
 
 public class PostStickerDTO {
     @Schema(description = "스티커 포스트 정보 DTO")
@@ -56,6 +59,24 @@ public class PostStickerDTO {
                 .width(width)
                 .height(height)
                 .angle(angle)
+                .build();
+    }
+
+    @Schema(description = "포스트에 저장된 스티커 리스트 정보 DTO")
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class PostStickerItems{
+        private Long postId;
+        private List<PostStickerItem> postStickerItems;
+    }
+
+    public static PostStickerDTO.PostStickerItems toPostStickerItems(Long postId, List<PostStickerItem> postStickerItems){
+        return PostStickerItems.builder()
+                .postId(postId)
+                .postStickerItems(postStickerItems)
                 .build();
     }
 }

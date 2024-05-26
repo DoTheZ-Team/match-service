@@ -37,16 +37,14 @@ public class PostStickerController {
         return ApiResponse.onSuccess(postStickerCommandService.BuildPostSticker(postId, stickerId, xLocation, yLocation, width, height, angle));
     }
 
-    @Operation(summary = "포스트 첨부 스티커 이미지 페이징 조회", description =
-            "사용자가 업로드한 포스트의 내부에 첨부된 스티커를 페이징 처리하여 조회합니다." +
-                    "포스트 아이디와 페이지 번호, size(한 번에 로딩을 원하는 스티커의 갯수)를 입력하면 해당 갯수 만큼의 스티커가 표출됩니다.")
-    @Parameter(name = "postId", description = "포스트의 id, Query Parameter입니다.", required = true, example = "1", in = ParameterIn.QUERY)
-    @Parameter(name = "page", description = "페이지 번호, Query Parameter입니다.", required = true, example = "0", in = ParameterIn.QUERY)
-    @Parameter(name = "size", description = "페이지 크기, Query Parameter입니다.", required = true, example = "10", in = ParameterIn.QUERY)
+    @Operation(summary = "포스트 첨부 스티커 이미지 조회 - Open Feign을 통해 post에서 사용되는 API입니다.", description =
+            "사용자가 업로드한 포스트의 내부에 첨부된 스티커를 전체 조회합니다.\n" +
+                    "포스트 아이디를 입력하면 해당 포스트의 모든 스티커가 표출됩니다.")
+//    @Parameter(name = "postId", description = "포스트의 id, Request Body Parameter입니다.", required = true, example = "1")
+    @Parameter(name = "postId", description = "포스트 id, Query Parameter입니다.", required = true, example = "1", in = ParameterIn.QUERY)
     @GetMapping("/poststickers")
-    public ApiResponse<Page<PostStickerDTO.PostStickerItem>> getStickersByPostId(@RequestParam(name = "postId") Long postId,
-                                                                                 @RequestParam(name = "page") int page,
-                                                                                 @RequestParam(name = "size") int size) {
-        return ApiResponse.onSuccess(postStickerQueryService.getPostStickersByPostId(postId, page, size));
+    public ApiResponse<PostStickerDTO.PostStickerItems> getStickersByPostId(@RequestParam(name="postId") Long postId) {
+        System.out.println(postId);
+        return ApiResponse.onSuccess(postStickerQueryService.getPostStickersByPostId(postId));
     }
 }

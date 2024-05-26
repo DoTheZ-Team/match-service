@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.justdo.glue.sticker.domain.poststicker.dto.PostStickerDTO.toPostStickerItem;
+import static com.justdo.glue.sticker.domain.poststicker.dto.PostStickerDTO.toPostStickerItems;
 import static com.justdo.glue.sticker.global.response.code.status.ErrorStatus.*;
 
 @Service
@@ -44,18 +45,27 @@ public class PostStickerQueryServiceImpl implements PostStickerQueryService{
     }
 
     @Override
-    public Page<PostStickerDTO.PostStickerItem> getPostStickersByPostId(Long postId, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<PostSticker> postStickerPage = postStickerRepository.findByPostId(postId, pageable);
+    public PostStickerDTO.PostStickerItems getPostStickersByPostId(Long postId) {
+        Optional<List<PostSticker>> postStickersOptional = postStickerRepository.findByPostId(postId);
 
-        if (postStickerPage.isEmpty()) {
+        if (postStickersOptional.isEmpty()) {
             throw new ApiException(_STICKER_POST_NOT_FOUND);
         }
 
-        List<PostStickerDTO.PostStickerItem> postStickerItems = postStickerPage.stream()
-                .map(postSticker -> toPostStickerItem(postSticker.getId(), postSticker.getPostId(), postSticker.getStickerId(), postSticker.getXLocation(), postSticker.getYLocation(), postSticker.getWidth(), postSticker.getHeight(), postSticker.getAngle()))
+        List<PostSticker> postStickers = postStickersOptional.get(); // Optional에서 리스트를 추출
+
+        List<PostStickerDTO.PostStickerItem> postStickerItems = postStickers.stream()
+                .map(postStickeritem -> toPostStickerItem(
+                        postStickeritem.getId(),
+                        postStickeritem.getPostId(),
+                        postStickeritem.getStickerId(),
+                        postStickeritem.getXLocation(),
+                        postStickeritem.getYLocation(),
+                        postStickeritem.getWidth(),
+                        postStickeritem.getHeight(),
+                        postStickeritem.getAngle()))
                 .collect(Collectors.toList());
 
-        return new PageImpl<>(postStickerItems, pageable, postStickerPage.getTotalElements());
+        return toPostStickerItems(postId, postStickerItems);
     }
 }

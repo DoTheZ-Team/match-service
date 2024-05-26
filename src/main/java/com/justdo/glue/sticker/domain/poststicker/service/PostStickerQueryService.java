@@ -7,5 +7,5 @@ import org.springframework.data.domain.Page;
 public interface PostStickerQueryService {
     PostStickerDTO.PostStickerItem getPostStickerById(Long id);
     PostStickerDTO.PostStickerItem savePostSticker(PostSticker postSticker);
-    Page<PostStickerDTO.PostStickerItem> getPostStickersByPostId(Long postId, int page, int size);
+    PostStickerDTO.PostStickerItems getPostStickersByPostId(Long postId);
 }
