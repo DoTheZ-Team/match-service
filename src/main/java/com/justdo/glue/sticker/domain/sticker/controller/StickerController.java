@@ -29,20 +29,23 @@ public class StickerController {
 
     //TODO: 달리 api 파라미터 값에 따른 parameter 추가 수정 필요
     //TODO: 사진 생성 횟수 초과시 막는 로직 필요
-    @Operation(summary = "sticker 이미지 생성 요청", description = "사용자의 요청에 따라 sticker를 생성합니다.")
+    @Operation(summary = "스티커 이미지 생성 요청", description =
+            "사용자의 요청에 따라 sticker를 생성합니다." +
+                    "prompt에는 간단한 단어가 들어가는 것이 좋습니다.")
     @Parameter(name = "prompt", description = "이미지 생성에 사용될 키워드, Request Body Parameter입니다.", required = true, example = "cat")
-    @PostMapping("")
+    @PostMapping
     public ApiResponse<StickerItem> createImage(HttpServletRequest request,
                                                 @RequestBody String prompt) {
 
-        Long memberId = jwtProvider.getUserIdFromToken(request);
+        Long userId = jwtProvider.getUserIdFromToken(request);
 
-
-        return ApiResponse.onSuccess(stickerCommandService.generateAndSaveSticker(prompt, memberId));
+        return ApiResponse.onSuccess(stickerCommandService.generateAndSaveSticker(prompt, userId));
     }
 
 
-    @Operation(summary = "개별 스티커 이미지 조회", description = "사용자가 생성한 스티커를 개별적으로 조회합니다.")
+    @Operation(summary = "개별 스티커 이미지 조회", description =
+            "사용자가 생성한 스티커를 개별적으로 조회합니다." +
+                    "스티커 id를 넣게 되면 생성한 스티커의 url 정보와 프롬프트 정보가 표출됩니다.")
     @Parameter(name = "stickerId", description = "스티커 Id, Path Variable입니다.", required = true, example = "1", in = ParameterIn.PATH)
     @GetMapping("/{stickerId}")
     public ApiResponse<StickerItem> getSticker(HttpServletRequest request,
@@ -50,13 +53,15 @@ public class StickerController {
         return ApiResponse.onSuccess(stickerQueryService.getStickerById(stickerId));
     }
 
-    @Operation(summary = "스티커 이미지 삭제", description = "사용자가 생성한 스티커를 삭제합니다.")
+    @Operation(summary = "스티커 이미지 삭제", description =
+            "사용자가 생성한 스티커를 삭제합니다." +
+                    "스티커의 id를 넣으면 해당 스티커가 삭제됩니다.")
     @Parameter(name = "stickerId", description = "스티커 Id, Path Variable입니다.", required = true, example = "1", in = ParameterIn.PATH)
     // 스티커 삭제 요청
     @DeleteMapping("/{stickerId}")
     public ApiResponse<String> deleteSticker(HttpServletRequest request,
                                              @PathVariable Long stickerId) {
-        Long memberId = jwtProvider.getUserIdFromToken(request);
-        return ApiResponse.onSuccess(stickerCommandService.deleteSticker(stickerId, memberId));
+        Long userId = jwtProvider.getUserIdFromToken(request);
+        return ApiResponse.onSuccess(stickerCommandService.deleteSticker(stickerId, userId));
     }
 }

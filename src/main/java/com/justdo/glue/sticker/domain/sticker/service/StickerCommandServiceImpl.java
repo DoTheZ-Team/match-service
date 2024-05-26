@@ -45,7 +45,7 @@ public class StickerCommandServiceImpl implements StickerCommandService {
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/images/generations";
 
     @Override
-    public StickerItem generateAndSaveSticker(String stickerPrompt, Long memberId) {
+    public StickerItem generateAndSaveSticker(String stickerPrompt, Long userId) {
         StickerGenerationResult generatedResult = generation(stickerPrompt);
 
         Sticker newSticker = Sticker.builder()
@@ -53,7 +53,7 @@ public class StickerCommandServiceImpl implements StickerCommandService {
                 .prompt(generatedResult.getStickerPrompt())
                 .build();
 
-        return saveSticker(newSticker, memberId);
+        return saveSticker(newSticker, userId);
     }
 
     // DALL-E API를 통해 이미지를 생성하고 S3에 업로드 후 URL 반환
@@ -104,14 +104,14 @@ public class StickerCommandServiceImpl implements StickerCommandService {
         return data.get(0).get("b64_json");
     }
 
-    private StickerItem saveSticker(Sticker sticker, Long memberId) {
-        StickerItem savedSticker = stickerQueryService.saveSticker(sticker, memberId);
+    private StickerItem saveSticker(Sticker sticker, Long userId) {
+        StickerItem savedSticker = stickerQueryService.saveSticker(sticker, userId);
         return toStickerItem(savedSticker.getStickerId(), savedSticker.getUrl(), savedSticker.getPrompt());
     }
 
     // 스티커와 관련된 이미지 삭제
     @Transactional
-    public String deleteSticker(Long stickerId, Long memberId) {
+    public String deleteSticker(Long stickerId, Long userId) {
         StickerItem sticker = stickerQueryService.getStickerById(stickerId);
 
         Sticker deleteSticker = Sticker.builder()
@@ -119,7 +119,7 @@ public class StickerCommandServiceImpl implements StickerCommandService {
                 .prompt(sticker.getPrompt())
                 .build();
 
-        stickerQueryService.deleteSticker(deleteSticker, memberId);
+        stickerQueryService.deleteSticker(deleteSticker, userId);
         return "스티커가 성공적으로 삭제되었습니다.";
     }
 }

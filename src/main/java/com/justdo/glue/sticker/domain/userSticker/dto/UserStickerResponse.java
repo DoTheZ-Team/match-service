@@ -1,4 +1,4 @@
-package com.justdo.glue.sticker.domain.membersticker.dto;
+package com.justdo.glue.sticker.domain.userSticker.dto;
 
 import com.justdo.glue.sticker.domain.sticker.dto.StickerResponse.*;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,29 +9,29 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public class MemberStickerResponse {
+public class UserStickerResponse {
     @Schema(description = "사용자와 사용자가 사용한 스티커 정보 리턴 DTO")
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public static class MemberStickerItem {
+    public static class UserStickerItem {
 
         @Schema(description = "사용자-스티커 엔티티의 id")
-        private Long memberStickerId;
+        private Long userStickerId;
 
         @Schema(description = "사용자의 id")
-        private Long memberId;
+        private Long userId;
 
         @Schema(description = "스티커의 id")
         private Long stickerId;
     }
 
-    public static MemberStickerResponse.MemberStickerItem toMemberStickerItem(Long memberStickerId, Long memberId, Long stickerId) {
+    public static UserStickerResponse.UserStickerItem toUserStickerItem(Long userStickerId, Long userId, Long stickerId) {
 
-        return MemberStickerResponse.MemberStickerItem.builder()
-                .memberStickerId(memberStickerId)
-                .memberId(memberId)
+        return UserStickerResponse.UserStickerItem.builder()
+                .userStickerId(userStickerId)
+                .userId(userId)
                 .stickerId(stickerId)
                 .build();
     }
@@ -41,16 +41,16 @@ public class MemberStickerResponse {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public static class MemberStickerItems {
+    public static class UserStickerItems {
 
-        private Long memberId;
+        private Long userId;
         private List<StickerItem> stickers;
     }
 
-    public static MemberStickerResponse.MemberStickerItems toMemberStickerItems(Long memberId, List<StickerItem> stickers) {
+    public static UserStickerResponse.UserStickerItems toUserStickerItems(Long userId, List<StickerItem> stickers) {
 
-        return MemberStickerResponse.MemberStickerItems.builder()
-                .memberId(memberId)
+        return UserStickerResponse.UserStickerItems.builder()
+                .userId(userId)
                 .stickers(stickers)
                 .build();
     }
