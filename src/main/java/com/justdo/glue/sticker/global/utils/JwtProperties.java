@@ -7,4 +7,3 @@ public interface JwtProperties {
     String MEMBER_ID = "memberId";
     Integer TOKEN_SPLIT = 7;
 }
-

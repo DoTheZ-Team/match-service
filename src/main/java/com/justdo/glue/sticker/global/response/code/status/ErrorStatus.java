@@ -25,10 +25,10 @@ public enum ErrorStatus implements BaseErrorCode {
     _STICKER_POST_NOT_FOUND(HttpStatus.NOT_FOUND, "STICKER_POST_001", "요청한 포스트와 해당 포스트의 sticker는 존재하지 않습니다."),
     _STICKER_POST_NOT_SAVED(HttpStatus.NOT_FOUND, "STICKER_POST_002", "요청한 포스트와 해당 포스트의 sticker를 서버에 저장하는 과정에서 오류가 발생했습니다."),
 
-    // Member Sticker 관련
-    _MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "STICKER_MEMBER_001", "요청 사용자의 sticker는 존재하지 않습니다."),
-    _MEMBER_STICKER_NOT_SAVED(HttpStatus.NOT_FOUND, "STICKER_MEMBER_002", "사용자에 대한 sticker를 서버에 저장하는 과정에서 오류가 발생했습니다."),
-    _MEMBER_STICKER_NOT_DELETED(HttpStatus.NOT_FOUND, "STICKER_MEMBER_003", "사용자에 대한 sticker를 삭제하는 과정에서 오류가 발생했습니다."),
+    // User Sticker 관련
+    _USER_NOT_FOUND(HttpStatus.NOT_FOUND, "STICKER_USER_001", "요청 사용자의 sticker는 존재하지 않습니다."),
+    _USER_STICKER_NOT_SAVED(HttpStatus.NOT_FOUND, "STICKER_USER_002", "사용자에 대한 sticker를 서버에 저장하는 과정에서 오류가 발생했습니다."),
+    _USER_STICKER_NOT_DELETED(HttpStatus.NOT_FOUND, "STICKER_USER_003", "사용자에 대한 sticker를 삭제하는 과정에서 오류가 발생했습니다."),
 
     // JWT 관련
     _JWT_NOT_FOUND(HttpStatus.NOT_FOUND, "JWT_001", "Header에 JWT가 존재하지 않습니다."),

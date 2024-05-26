@@ -1,4 +1,4 @@
-package com.justdo.glue.sticker.domain.membersticker;
+package com.justdo.glue.sticker.domain.userSticker;
 
 import com.justdo.glue.sticker.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -10,13 +10,13 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class MemberSticker extends BaseTimeEntity {
+public class UserSticker extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, columnDefinition = "BIGINT")
-    private Long memberId;
+    private Long userId;
 
     @Column(nullable = false, columnDefinition = "BIGINT")
     private Long stickerId;

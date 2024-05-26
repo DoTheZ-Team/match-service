@@ -33,13 +33,13 @@ public class StickerController {
             "사용자의 요청에 따라 sticker를 생성합니다." +
                     "prompt에는 간단한 단어가 들어가는 것이 좋습니다.")
     @Parameter(name = "prompt", description = "이미지 생성에 사용될 키워드, Request Body Parameter입니다.", required = true, example = "cat")
-    @PostMapping("")
+    @PostMapping
     public ApiResponse<StickerItem> createImage(HttpServletRequest request,
                                                 @RequestBody String prompt) {
 
-        Long memberId = jwtProvider.getUserIdFromToken(request);
+        Long userId = jwtProvider.getUserIdFromToken(request);
 
-        return ApiResponse.onSuccess(stickerCommandService.generateAndSaveSticker(prompt, memberId));
+        return ApiResponse.onSuccess(stickerCommandService.generateAndSaveSticker(prompt, userId));
     }
 
 
@@ -61,7 +61,7 @@ public class StickerController {
     @DeleteMapping("/{stickerId}")
     public ApiResponse<String> deleteSticker(HttpServletRequest request,
                                              @PathVariable Long stickerId) {
-        Long memberId = jwtProvider.getUserIdFromToken(request);
-        return ApiResponse.onSuccess(stickerCommandService.deleteSticker(stickerId, memberId));
+        Long userId = jwtProvider.getUserIdFromToken(request);
+        return ApiResponse.onSuccess(stickerCommandService.deleteSticker(stickerId, userId));
     }
 }

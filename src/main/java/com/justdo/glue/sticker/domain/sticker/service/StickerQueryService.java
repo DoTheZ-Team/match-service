@@ -6,6 +6,6 @@ import com.justdo.glue.sticker.domain.sticker.dto.StickerResponse.StickerItem;
 
 public interface StickerQueryService {
     StickerItem getStickerById(Long id);
-    StickerItem saveSticker(Sticker sticker, Long memberId);
-    void deleteSticker(Sticker sticker, Long memberId);
+    StickerItem saveSticker(Sticker sticker, Long userId);
+    void deleteSticker(Sticker sticker, Long userId);
 }
