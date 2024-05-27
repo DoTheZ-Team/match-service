@@ -79,4 +79,90 @@ public class PostStickerDTO {
                 .postStickerItems(postStickerItems)
                 .build();
     }
+
+    @Schema(description = "url포함 스티커 포스트 정보 DTO")
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class PostStickerUrlItem {
+
+        @Schema(description = "포스트-스티커의 id")
+        @JsonProperty("postStickerId")
+        private Long postStickerId;
+
+        @Schema(description = "포스트의 id")
+        @JsonProperty("postId")
+        private Long postId;
+
+        @Schema(description = "스티커의 id")
+        @JsonProperty("stickerId")
+        private Long stickerId;
+
+        @Schema(description = "스티커의 x_location")
+        @JsonProperty("xLocation")
+        private int xLocation;
+
+        @Schema(description = "스티커의 y_location")
+        @JsonProperty("yLocation")
+        private int yLocation;
+
+        @Schema(description = "스티커의 width")
+        @JsonProperty("width")
+        private int width;
+
+        @Schema(description = "스티커의 height")
+        @JsonProperty("height")
+        private int height;
+
+        @Schema(description = "스티커의 angle")
+        @JsonProperty("angle")
+        private int angle;
+
+        @Schema(description = "스티커의 url")
+        @JsonProperty("url")
+        private String url;
+    }
+
+    public static PostStickerDTO.PostStickerUrlItem toPostStickerUrlItem(Long postStickerId,
+                                                                           Long stickerId,
+                                                                           Long postId,
+                                                                           int xLocation,
+                                                                           int yLocation,
+                                                                           int width,
+                                                                           int height,
+                                                                           int angle,
+                                                                           String url) {
+        return PostStickerUrlItem.builder()
+                .postStickerId(postStickerId)
+                .postId(postId)
+                .stickerId(stickerId)
+                .xLocation(xLocation)
+                .yLocation(yLocation)
+                .width(width)
+                .height(height)
+                .angle(angle)
+                .url(url)
+                .build();
+    }
+
+    @Schema(description = "url 포함 스티커 포스트 정보 DTO")
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class PostStickerUrlItems {
+
+        @Schema(description = "url포함 포스트-스티커 리스트")
+        @JsonProperty("postStickerId")
+        private List<PostStickerUrlItem> postStickerUrlItems;
+    }
+
+    public static PostStickerDTO.PostStickerUrlItems toPostStickerUrlItems(List<PostStickerUrlItem> postStickerUrlItems) {
+        return PostStickerUrlItems.builder()
+                .postStickerUrlItems(postStickerUrlItems)
+                .build();
+    }
 }
