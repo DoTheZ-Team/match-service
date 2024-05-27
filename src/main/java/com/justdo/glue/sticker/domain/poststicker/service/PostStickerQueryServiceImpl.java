@@ -1,8 +1,9 @@
 package com.justdo.glue.sticker.domain.poststicker.service;
 
 import com.justdo.glue.sticker.domain.poststicker.PostSticker;
-import com.justdo.glue.sticker.domain.poststicker.dto.PostStickerDTO;
+import com.justdo.glue.sticker.domain.sticker.dto.StickerResponse.*;
 import com.justdo.glue.sticker.domain.poststicker.repository.PostStickerRepository;
+import com.justdo.glue.sticker.domain.sticker.service.StickerQueryService;
 import com.justdo.glue.sticker.global.exception.ApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,8 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.justdo.glue.sticker.domain.poststicker.dto.PostStickerDTO.toPostStickerItem;
-import static com.justdo.glue.sticker.domain.poststicker.dto.PostStickerDTO.toPostStickerItems;
+import static com.justdo.glue.sticker.domain.poststicker.dto.PostStickerDTO.*;
 import static com.justdo.glue.sticker.global.response.code.status.ErrorStatus.*;
 
 @Service
@@ -26,9 +26,10 @@ import static com.justdo.glue.sticker.global.response.code.status.ErrorStatus.*;
 public class PostStickerQueryServiceImpl implements PostStickerQueryService{
 
     private final PostStickerRepository postStickerRepository;
+    private final StickerQueryService stickerQueryService;
 
     @Override
-    public PostStickerDTO.PostStickerItem getPostStickerById(Long id) {
+    public PostStickerItem getPostStickerById(Long id) {
         PostSticker postSticker = postStickerRepository.findById(id)
                 .orElseThrow(() -> new ApiException(_STICKER_POST_NOT_FOUND));
 
@@ -37,7 +38,7 @@ public class PostStickerQueryServiceImpl implements PostStickerQueryService{
 
     @Override
     @Transactional
-    public PostStickerDTO.PostStickerItem savePostSticker(PostSticker postSticker) {
+    public PostStickerItem savePostSticker(PostSticker postSticker) {
         PostSticker savedPostSticker = Optional.of(postStickerRepository.save(postSticker))
                 .orElseThrow(() -> new ApiException(_STICKER_POST_NOT_SAVED));
 
@@ -45,7 +46,7 @@ public class PostStickerQueryServiceImpl implements PostStickerQueryService{
     }
 
     @Override
-    public PostStickerDTO.PostStickerItems getPostStickersByPostId(Long postId) {
+    public PostStickerUrlItems getPostStickersByPostId(Long postId) {
         Optional<List<PostSticker>> postStickersOptional = postStickerRepository.findByPostId(postId);
 
         if (postStickersOptional.isEmpty()) {
@@ -54,18 +55,24 @@ public class PostStickerQueryServiceImpl implements PostStickerQueryService{
 
         List<PostSticker> postStickers = postStickersOptional.get(); // Optional에서 리스트를 추출
 
-        List<PostStickerDTO.PostStickerItem> postStickerItems = postStickers.stream()
-                .map(postStickeritem -> toPostStickerItem(
-                        postStickeritem.getId(),
-                        postStickeritem.getPostId(),
-                        postStickeritem.getStickerId(),
-                        postStickeritem.getXLocation(),
-                        postStickeritem.getYLocation(),
-                        postStickeritem.getWidth(),
-                        postStickeritem.getHeight(),
-                        postStickeritem.getAngle()))
+        List<PostStickerUrlItem> postStickerItems = postStickers.stream()
+                .map(postStickeritem -> {
+                    StickerItem stickerItem = stickerQueryService.getStickerById(postStickeritem.getStickerId());
+                    PostStickerItem postStickerItem = toPostStickerItem(
+                            postStickeritem.getId(),
+                            postStickeritem.getPostId(),
+                            postStickeritem.getStickerId(),
+                            postStickeritem.getXLocation(),
+                            postStickeritem.getYLocation(),
+                            postStickeritem.getWidth(),
+                            postStickeritem.getHeight(),
+                            postStickeritem.getAngle()
+                    );
+                    return toPostStickerUrlItem(postStickerItem, stickerItem.getUrl());
+                })
                 .collect(Collectors.toList());
 
-        return toPostStickerItems(postId, postStickerItems);
+
+        return toPostStickerUrlItems(postStickerItems);
     }
 }

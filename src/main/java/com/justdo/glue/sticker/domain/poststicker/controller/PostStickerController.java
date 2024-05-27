@@ -42,8 +42,8 @@ public class PostStickerController {
                     "포스트 아이디를 입력하면 해당 포스트의 모든 스티커가 표출됩니다.")
     @Parameter(name = "postId", description = "포스트 id, Query Parameter입니다.", required = true, example = "1", in = ParameterIn.QUERY)
     @GetMapping("/poststickers")
-    public ApiResponse<PostStickerDTO.PostStickerItems> getStickersByPostId(@RequestParam(name="postId") Long postId) {
+    public PostStickerDTO.PostStickerUrlItems getStickersByPostId(@RequestParam(name="postId") Long postId) {
         System.out.println(postId);
-        return ApiResponse.onSuccess(postStickerQueryService.getPostStickersByPostId(postId));
+        return postStickerQueryService.getPostStickersByPostId(postId);
     }
 }

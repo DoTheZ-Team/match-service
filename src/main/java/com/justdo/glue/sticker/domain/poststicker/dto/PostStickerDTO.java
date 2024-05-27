@@ -88,61 +88,16 @@ public class PostStickerDTO {
     @Setter
     public static class PostStickerUrlItem {
 
-        @Schema(description = "포스트-스티커의 id")
-        @JsonProperty("postStickerId")
-        private Long postStickerId;
-
-        @Schema(description = "포스트의 id")
-        @JsonProperty("postId")
-        private Long postId;
-
-        @Schema(description = "스티커의 id")
-        @JsonProperty("stickerId")
-        private Long stickerId;
-
-        @Schema(description = "스티커의 x_location")
-        @JsonProperty("xLocation")
-        private int xLocation;
-
-        @Schema(description = "스티커의 y_location")
-        @JsonProperty("yLocation")
-        private int yLocation;
-
-        @Schema(description = "스티커의 width")
-        @JsonProperty("width")
-        private int width;
-
-        @Schema(description = "스티커의 height")
-        @JsonProperty("height")
-        private int height;
-
-        @Schema(description = "스티커의 angle")
-        @JsonProperty("angle")
-        private int angle;
+        @Schema(description = "스티커 item")
+        private PostStickerItem postStickerItem;
 
         @Schema(description = "스티커의 url")
-        @JsonProperty("url")
         private String url;
     }
 
-    public static PostStickerDTO.PostStickerUrlItem toPostStickerUrlItem(Long postStickerId,
-                                                                           Long stickerId,
-                                                                           Long postId,
-                                                                           int xLocation,
-                                                                           int yLocation,
-                                                                           int width,
-                                                                           int height,
-                                                                           int angle,
-                                                                           String url) {
+    public static PostStickerDTO.PostStickerUrlItem toPostStickerUrlItem(PostStickerItem postStickerItem, String url) {
         return PostStickerUrlItem.builder()
-                .postStickerId(postStickerId)
-                .postId(postId)
-                .stickerId(stickerId)
-                .xLocation(xLocation)
-                .yLocation(yLocation)
-                .width(width)
-                .height(height)
-                .angle(angle)
+                .postStickerItem(postStickerItem)
                 .url(url)
                 .build();
     }
