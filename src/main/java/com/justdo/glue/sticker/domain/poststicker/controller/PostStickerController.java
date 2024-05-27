@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Sticker API")
+@Tag(name = "Post-Sticker API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/stickers")
@@ -40,7 +40,6 @@ public class PostStickerController {
     @Operation(summary = "포스트 첨부 스티커 이미지 조회 - Open Feign을 통해 post에서 사용되는 API입니다.", description =
             "사용자가 업로드한 포스트의 내부에 첨부된 스티커를 전체 조회합니다.\n" +
                     "포스트 아이디를 입력하면 해당 포스트의 모든 스티커가 표출됩니다.")
-//    @Parameter(name = "postId", description = "포스트의 id, Request Body Parameter입니다.", required = true, example = "1")
     @Parameter(name = "postId", description = "포스트 id, Query Parameter입니다.", required = true, example = "1", in = ParameterIn.QUERY)
     @GetMapping("/poststickers")
     public ApiResponse<PostStickerDTO.PostStickerItems> getStickersByPostId(@RequestParam(name="postId") Long postId) {

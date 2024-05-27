@@ -1,5 +1,6 @@
 package com.justdo.glue.sticker.domain.userSticker.service;
 
+import com.justdo.glue.sticker.domain.common.CustomPage;
 import com.justdo.glue.sticker.domain.userSticker.UserSticker;
 import com.justdo.glue.sticker.domain.userSticker.dto.UserStickerResponse;
 import com.justdo.glue.sticker.domain.userSticker.repository.UserStickerRepository;
@@ -43,12 +44,12 @@ public class UserStickerQueryServiceImpl implements UserStickerQueryService {
     }
 
     @Override
-    public Page<UserStickerResponse.UserStickerItems> getPageStickersByUserId(Long userId, int page, int size) {
+    public CustomPage<UserStickerResponse.UserStickerItems> getPageStickersByUserId(Long userId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<UserSticker> userStickerPage = userStickerRepository.findByUserId(userId, pageable);
 
         if (userStickerPage.isEmpty()) {
-            return Page.empty(pageable);  // 빈 페이지 반환
+            return new CustomPage<>(Page.empty(pageable));  // 빈 페이지 반환
         }
 
         List<Long> stickerIds = userStickerPage.stream()
@@ -63,6 +64,6 @@ public class UserStickerQueryServiceImpl implements UserStickerQueryService {
 
         List<UserStickerResponse.UserStickerItems> userStickerItemsList = List.of(userStickerItems);
 
-        return new PageImpl<>(userStickerItemsList, pageable, userStickerPage.getTotalElements());
+        return new CustomPage<>(new PageImpl<>(userStickerItemsList, pageable, userStickerPage.getTotalElements()));
     }
 }
