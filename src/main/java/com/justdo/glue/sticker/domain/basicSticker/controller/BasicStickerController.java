@@ -29,7 +29,7 @@ public class BasicStickerController {
             "기본 스티커를 페이징 처리하여 조회합니다.")
     @Parameter(name = "page", description = "페이지 번호, Query Parameter입니다.", required = true, example = "0", in = ParameterIn.QUERY)
     @Parameter(name = "size", description = "페이지 크기, Query Parameter입니다.", required = true, example = "10", in = ParameterIn.QUERY)
-    @GetMapping("/basics/pages")
+    @GetMapping("/basics")
     public ApiResponse<CustomPage<BasicStickerItems>> getBasicStickersPage(@RequestParam(name = "page") int page,
                                                                            @RequestParam(name = "size") int size) {
         return ApiResponse.onSuccess(basicStickerQueryService.getBasicStickersPage(page, size));

@@ -39,7 +39,7 @@ public class UserStickerController {
                     "한꺼번에 사용자가 생성한 스티커를 불러오는 것이 아닌, 페이징 처리를 통해 불러오고 싶을 때 사용하시면 됩니다.")
     @Parameter(name = "page", description = "페이지 번호, Query Parameter입니다.", required = true, example = "0", in = ParameterIn.QUERY)
     @Parameter(name = "size", description = "페이지 크기, Query Parameter입니다.", required = true, example = "10", in = ParameterIn.QUERY)
-    @GetMapping("/users/pages")
+    @GetMapping("/users")
     public ApiResponse<CustomPage<UserStickerItems>> getSpecificUserStickersPage(HttpServletRequest request,
                                                                                  @RequestParam(name = "page") int page,
                                                                                  @RequestParam(name = "size") int size) {
