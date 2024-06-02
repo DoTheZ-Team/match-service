@@ -29,7 +29,6 @@ public class UserStickerController {
     @GetMapping("/users")
     public ApiResponse<UserStickerItems> getSpecificUserStickers(HttpServletRequest request) {
         Long userId = jwtProvider.getUserIdFromToken(request);
-        System.out.println(userId);
 
         return ApiResponse.onSuccess(userStickerQueryService.getStickersByUserId(userId));
     }

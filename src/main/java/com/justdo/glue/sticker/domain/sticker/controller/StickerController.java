@@ -57,7 +57,6 @@ public class StickerController {
             "사용자가 생성한 스티커를 삭제합니다." +
                     "스티커의 id를 넣으면 해당 스티커가 삭제됩니다.")
     @Parameter(name = "stickerId", description = "스티커 Id, Path Variable입니다.", required = true, example = "1", in = ParameterIn.PATH)
-    // 스티커 삭제 요청
     @DeleteMapping("/{stickerId}")
     public ApiResponse<String> deleteSticker(HttpServletRequest request,
                                              @PathVariable Long stickerId) {

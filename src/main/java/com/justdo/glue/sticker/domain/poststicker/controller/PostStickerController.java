@@ -43,7 +43,6 @@ public class PostStickerController {
     @Parameter(name = "postId", description = "포스트 id, Query Parameter입니다.", required = true, example = "1", in = ParameterIn.QUERY)
     @GetMapping("/poststickers")
     public PostStickerDTO.PostStickerUrlItems getStickersByPostId(@RequestParam(name="postId") Long postId) {
-        System.out.println(postId);
         return postStickerQueryService.getPostStickersByPostId(postId);
     }
 }

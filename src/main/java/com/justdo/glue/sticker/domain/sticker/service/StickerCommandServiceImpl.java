@@ -115,6 +115,7 @@ public class StickerCommandServiceImpl implements StickerCommandService {
         StickerItem sticker = stickerQueryService.getStickerById(stickerId);
 
         Sticker deleteSticker = Sticker.builder()
+                .id(sticker.getStickerId())
                 .url(sticker.getUrl())
                 .prompt(sticker.getPrompt())
                 .build();

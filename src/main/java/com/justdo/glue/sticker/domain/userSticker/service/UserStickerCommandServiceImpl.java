@@ -38,11 +38,12 @@ public class UserStickerCommandServiceImpl implements UserStickerCommandService 
     @Override
     @Transactional
     public void deleteUserSticker(Long stickerId, Long userId) {
-        UserSticker userSticker = userStickerRepository.findByStickerIdAndUserId(stickerId, userId)
-                .orElseThrow(() -> new ApiException(_USER_STICKER_NOT_DELETED));
         try {
+            UserSticker userSticker = userStickerRepository.findByStickerIdAndUserId(stickerId, userId)
+                    .orElseThrow(() -> new ApiException(_USER_STICKER_NOT_DELETED));
             userStickerRepository.delete(userSticker);
         } catch (Exception e) {
+            System.err.println("Error deleting user sticker: " + e.getMessage());
             throw new ApiException(_USER_STICKER_NOT_DELETED);
         }
     }

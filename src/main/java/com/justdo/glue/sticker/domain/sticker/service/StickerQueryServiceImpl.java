@@ -45,10 +45,10 @@ public class StickerQueryServiceImpl implements StickerQueryService {
     @Transactional
     public void deleteSticker(Sticker sticker, Long userId) {
         try {
-            stickerRepository.delete(sticker);
-
             userStickerCommandService.deleteUserSticker(sticker.getId(), userId);
+            stickerRepository.delete(sticker);
         } catch (Exception e) {
+            System.err.println("Error deleting sticker: " + e.getMessage());
             throw new ApiException(_STICKER_NOT_DELETED);
         }
     }
