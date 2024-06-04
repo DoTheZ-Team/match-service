@@ -28,12 +28,12 @@ public class BasicStickerQueryServiceImpl implements BasicStickerQueryService {
     private final StickerQueryService StickerQueryService;
 
     @Override
-    public CustomPage<BasicStickerItems> getBasicStickersPage(int page, int size) {
+    public CustomPage<BasicSticker, BasicStickerItems> getBasicStickersPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<BasicSticker> basicStickerPage = basicStickerRepository.findAll(pageable);
 
         if (basicStickerPage.isEmpty()) {
-            return new CustomPage<>(Page.empty(pageable));  // 빈 페이지 반환
+            return new CustomPage<>(Page.empty(pageable), null);  // 빈 페이지 반환
         }
 
         List<Long> stickerIds = basicStickerPage.stream()
@@ -46,8 +46,6 @@ public class BasicStickerQueryServiceImpl implements BasicStickerQueryService {
 
         BasicStickerItems basicStickerItems = toBasicStickerItems(stickerItems);
 
-        List<BasicStickerItems> userStickerItemsList = List.of(basicStickerItems);
-
-        return new CustomPage<>(new PageImpl<>(userStickerItemsList, pageable, basicStickerPage.getTotalElements()));
+        return new CustomPage<>(basicStickerPage, basicStickerItems);
     }
 }

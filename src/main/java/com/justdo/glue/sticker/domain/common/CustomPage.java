@@ -5,29 +5,29 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public class CustomPage<T> {
-    private List<T> content;
+public class CustomPage<T, C> {
+    private C content;
     private boolean isFirst;
     private boolean isLast;
     private int totalPage;
     private long totalElements;
     private int size;
-    private int number;
+    private int currPage;
     private boolean hasNext;
 
-    public CustomPage(Page<T> page) {
-        this.content = page.getContent();
+    public CustomPage(Page<T> page, C content) {
+        this.content = content;
         this.isFirst = page.isFirst();
         this.isLast = page.isLast();
         this.totalPage = page.getTotalPages();
         this.totalElements = page.getTotalElements();
         this.size = page.getSize();
-        this.number = page.getNumber();
+        this.currPage = page.getNumber();
         this.hasNext = page.hasNext();
     }
 
     @JsonProperty("content")
-    public List<T> getContent() {
+    public C getContent() {
         return content;
     }
 
@@ -57,8 +57,8 @@ public class CustomPage<T> {
     }
 
     @JsonProperty("number")
-    public int getNumber() {
-        return number;
+    public int getCurrPage() {
+        return currPage;
     }
 
     @JsonProperty("hasNext")
