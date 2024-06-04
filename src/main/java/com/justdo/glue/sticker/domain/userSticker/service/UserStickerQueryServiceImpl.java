@@ -44,12 +44,12 @@ public class UserStickerQueryServiceImpl implements UserStickerQueryService {
     }
 
     @Override
-    public CustomPage<UserStickerResponse.UserStickerItems> getPageStickersByUserId(Long userId, int page, int size) {
+    public CustomPage<UserSticker, UserStickerResponse.UserStickerItems> getPageStickersByUserId(Long userId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<UserSticker> userStickerPage = userStickerRepository.findByUserId(userId, pageable);
 
         if (userStickerPage.isEmpty()) {
-            return new CustomPage<>(Page.empty(pageable));  // 빈 페이지 반환
+            return new CustomPage<>(Page.empty(pageable), null);  // 빈 페이지 반환
         }
 
         List<Long> stickerIds = userStickerPage.stream()
@@ -62,8 +62,6 @@ public class UserStickerQueryServiceImpl implements UserStickerQueryService {
 
         UserStickerResponse.UserStickerItems userStickerItems = UserStickerResponse.toUserStickerItems(userId, stickerItems);
 
-        List<UserStickerResponse.UserStickerItems> userStickerItemsList = List.of(userStickerItems);
-
-        return new CustomPage<>(new PageImpl<>(userStickerItemsList, pageable, userStickerPage.getTotalElements()));
+        return new CustomPage<>(userStickerPage, userStickerItems);
     }
 }

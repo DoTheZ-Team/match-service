@@ -1,6 +1,8 @@
 package com.justdo.glue.sticker.domain.userSticker.controller;
 
 import com.justdo.glue.sticker.domain.common.CustomPage;
+import com.justdo.glue.sticker.domain.userSticker.UserSticker;
+import com.justdo.glue.sticker.domain.userSticker.dto.UserStickerResponse;
 import com.justdo.glue.sticker.domain.userSticker.dto.UserStickerResponse.*;
 import com.justdo.glue.sticker.domain.userSticker.service.UserStickerQueryService;
 import com.justdo.glue.sticker.global.response.ApiResponse;
@@ -40,9 +42,9 @@ public class UserStickerController {
     @Parameter(name = "page", description = "페이지 번호, Query Parameter입니다.", required = true, example = "0", in = ParameterIn.QUERY)
     @Parameter(name = "size", description = "페이지 크기, Query Parameter입니다.", required = true, example = "10", in = ParameterIn.QUERY)
     @GetMapping("/users/pages")
-    public ApiResponse<CustomPage<UserStickerItems>> getSpecificUserStickersPage(HttpServletRequest request,
-                                                                                 @RequestParam(name = "page") int page,
-                                                                                 @RequestParam(name = "size") int size) {
+    public ApiResponse<CustomPage<UserSticker, UserStickerResponse.UserStickerItems>> getSpecificUserStickersPage(HttpServletRequest request,
+                                                                                                                  @RequestParam(name = "page") int page,
+                                                                                                                  @RequestParam(name = "size") int size) {
         Long userId = jwtProvider.getUserIdFromToken(request);
         return ApiResponse.onSuccess(userStickerQueryService.getPageStickersByUserId(userId, page, size));
     }
