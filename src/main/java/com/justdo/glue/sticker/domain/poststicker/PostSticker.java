@@ -27,12 +27,12 @@ public class PostSticker extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "INT")
     private int yLocation;
 
-    @Column(nullable = false, columnDefinition = "INT")
-    private int width;
+    @Column(nullable = false, columnDefinition = "DOUBLE")
+    private double width;
 
-    @Column(nullable = false, columnDefinition = "INT")
-    private int height;
+    @Column(nullable = false, columnDefinition = "DOUBLE")
+    private double height;
 
-    @Column(nullable = false, columnDefinition = "INT")
-    private int angle;
+    @Column(nullable = false, columnDefinition = "DOUBLE")
+    private double angle;
 }
