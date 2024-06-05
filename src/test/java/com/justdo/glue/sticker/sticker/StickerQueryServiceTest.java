@@ -53,6 +53,16 @@ public class StickerQueryServiceTest {
     }
 
     @Test
+    void testDeleteSticker() {
+        Sticker sticker = Sticker.builder().id(1L).url("http://example.com/image.png").prompt("cat").build();
+        when(stickerRepository.findById(anyLong())).thenReturn(Optional.of(sticker));
+        doNothing().when(stickerRepository).delete(any(Sticker.class));
+
+        stickerQueryService.deleteSticker(sticker, 1L);
+        verify(stickerRepository, times(1)).delete(sticker);
+    }
+
+    @Test
     void testSaveSticker() {
         Sticker sticker = Sticker.builder().id(1L).url("http://example.com/image.png").prompt("cat").build();
         when(stickerRepository.save(any(Sticker.class))).thenReturn(sticker);
@@ -61,15 +71,5 @@ public class StickerQueryServiceTest {
         assertEquals(1L, result.getStickerId());
         assertEquals("http://example.com/image.png", result.getUrl());
         assertEquals("cat", result.getPrompt());
-    }
-
-    @Test
-    void testDeleteSticker() {
-        Sticker sticker = Sticker.builder().id(100L).url("http://example.com/image.png").prompt("cat").build();
-        when(stickerRepository.findById(anyLong())).thenReturn(Optional.of(sticker));
-        doNothing().when(stickerRepository).delete(any(Sticker.class));
-
-        stickerQueryService.deleteSticker(sticker, 100L);
-        verify(stickerRepository, times(1)).delete(sticker);
     }
 }

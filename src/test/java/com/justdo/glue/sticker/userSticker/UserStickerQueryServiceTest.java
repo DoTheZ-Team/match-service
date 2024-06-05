@@ -66,4 +66,3 @@ public class UserStickerQueryServiceTest {
         assertEquals(1L, result.getContent().get(0).getStickers().get(0).getStickerId());
     }
 }
-

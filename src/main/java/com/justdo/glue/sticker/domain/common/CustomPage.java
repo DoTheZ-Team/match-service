@@ -12,7 +12,7 @@ public class CustomPage<T> {
     private int totalPage;
     private long totalElements;
     private int size;
-    private int number;
+    private int currPage;
     private boolean hasNext;
 
     public CustomPage(Page<T> page) {
@@ -22,7 +22,7 @@ public class CustomPage<T> {
         this.totalPage = page.getTotalPages();
         this.totalElements = page.getTotalElements();
         this.size = page.getSize();
-        this.number = page.getNumber();
+        this.currPage = page.getNumber();
         this.hasNext = page.hasNext();
     }
 
@@ -56,9 +56,9 @@ public class CustomPage<T> {
         return size;
     }
 
-    @JsonProperty("number")
-    public int getNumber() {
-        return number;
+    @JsonProperty("currPage")
+    public int getCurrPage() {
+        return currPage;
     }
 
     @JsonProperty("hasNext")

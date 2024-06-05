@@ -68,10 +68,10 @@ public class StickerControllerTest {
         StickerItem mockStickerItem = new StickerItem(1L, "http://example.com/image.png", "cat");
         when(stickerQueryService.getStickerById(anyLong())).thenReturn(mockStickerItem);
 
-        MvcResult result = mockMvc.perform(get("/stickers/1")
+        MvcResult result = mockMvc.perform(get("/stickers/2")
                         .header("Authorization", "Bearer " + MASTER_TOKEN))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result.stickerId").value(1L))
+                .andExpect(jsonPath("$.result.stickerId").value(2L))
                 .andExpect(jsonPath("$.result.url").value("https://glue-bucket-sticker.s3.ap-northeast-2.amazonaws.com/036adc2e-00de-4689-a044-27f52aafcd35.png"))
                 .andExpect(jsonPath("$.result.prompt").value("귀여운 고양이"))
                 .andReturn();
@@ -84,7 +84,7 @@ public class StickerControllerTest {
         when(jwtProvider.getUserIdFromToken(any())).thenReturn(1L);
         when(stickerCommandService.deleteSticker(anyLong(), anyLong())).thenReturn("스티커가 성공적으로 삭제되었습니다.");
 
-        mockMvc.perform(delete("/stickers/1")
+        mockMvc.perform(delete("/stickers/2")
                         .header("Authorization", "Bearer " + MASTER_TOKEN))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.result").value("스티커가 성공적으로 삭제되었습니다."));
