@@ -1,5 +1,6 @@
 package com.justdo.glue.sticker.domain.poststicker.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.justdo.glue.sticker.domain.poststicker.PostSticker;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
@@ -30,9 +31,11 @@ public class PostStickerDTO {
         private String url;
 
         @Schema(description = "스티커의 x_location", example = "100")
+        @JsonProperty(value = "xlocation")
         private int xLocation;
 
         @Schema(description = "스티커의 y_location", example = "100")
+        @JsonProperty(value = "ylocation")
         private int yLocation;
 
         @Schema(description = "스티커의 scaleX", example = "100")
