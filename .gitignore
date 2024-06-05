@@ -41,3 +41,7 @@ application-SECRET-KEY.yml
 /.gradle
 
 application.yml
+.gradle/8.6/executionHistory/executionHistory.lock
+.gradle/8.6/fileHashes/fileHashes.bin
+.gradle/8.6/fileHashes/fileHashes.lock
+.gradle/buildOutputCleanup/buildOutputCleanup.lock

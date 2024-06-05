@@ -36,29 +36,29 @@ public class PostStickerDTO {
         @JsonProperty("yLocation")
         private int yLocation;
 
-        @Schema(description = "스티커의 width")
-        @JsonProperty("width")
-        private int width;
+        @Schema(description = "스티커의 scaleX")
+        @JsonProperty("scaleX")
+        private double scaleX;
 
-        @Schema(description = "스티커의 height")
-        @JsonProperty("height")
-        private int height;
+        @Schema(description = "스티커의 scaleY")
+        @JsonProperty("scaleY")
+        private double scaleY;
 
-        @Schema(description = "스티커의 angle")
-        @JsonProperty("angle")
-        private int angle;
+        @Schema(description = "스티커의 rotation")
+        @JsonProperty("rotation")
+        private double rotation;
     }
 
-    public static PostStickerDTO.PostStickerItem toPostStickerItem(Long postStickerId, Long stickerId, Long postId, int xLocation, int yLocation, int width, int height, int angle) {
+    public static PostStickerDTO.PostStickerItem toPostStickerItem(Long postStickerId, Long stickerId, Long postId, int xLocation, int yLocation, double scaleX, double scaleY, double rotation) {
         return PostStickerItem.builder()
                 .postStickerId(postStickerId)
                 .postId(postId)
                 .stickerId(stickerId)
                 .xLocation(xLocation)
                 .yLocation(yLocation)
-                .width(width)
-                .height(height)
-                .angle(angle)
+                .scaleX(scaleX)
+                .scaleY(scaleY)
+                .rotation(rotation)
                 .build();
     }
 
@@ -69,13 +69,11 @@ public class PostStickerDTO {
     @Getter
     @Setter
     public static class PostStickerItems{
-        private Long postId;
         private List<PostStickerItem> postStickerItems;
     }
 
-    public static PostStickerDTO.PostStickerItems toPostStickerItems(Long postId, List<PostStickerItem> postStickerItems){
+    public static PostStickerDTO.PostStickerItems toPostStickerItems(List<PostStickerItem> postStickerItems){
         return PostStickerItems.builder()
-                .postId(postId)
                 .postStickerItems(postStickerItems)
                 .build();
     }
@@ -111,7 +109,7 @@ public class PostStickerDTO {
     public static class PostStickerUrlItems {
 
         @Schema(description = "url포함 포스트-스티커 리스트")
-        @JsonProperty("postStickerId")
+        @JsonProperty("postStickerUrlItems")
         private List<PostStickerUrlItem> postStickerUrlItems;
     }
 
