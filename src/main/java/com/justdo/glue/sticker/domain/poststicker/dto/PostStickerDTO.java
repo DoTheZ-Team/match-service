@@ -30,9 +30,11 @@ public class PostStickerDTO {
         private String url;
 
         @Schema(description = "스티커의 xLocation", example = "100")
+        @JsonProperty("xLocation")
         private int xLocation;
 
         @Schema(description = "스티커의 yLocation", example = "100")
+        @JsonProperty("yLocation")
         private int yLocation;
 
         @Schema(description = "스티커의 scaleX", example = "100")
@@ -87,8 +89,8 @@ public class PostStickerDTO {
                 .postId(postSticker.getPostId())
                 .stickerId(postSticker.getStickerId())
                 .url(url)
-                .xLocation(postSticker.getxLocation())
-                .yLocation(postSticker.getyLocation())
+                .xLocation(postSticker.getXLocation())
+                .yLocation(postSticker.getYLocation())
                 .scaleX(postSticker.getWidth())
                 .scaleY(postSticker.getHeight())
                 .rotation(postSticker.getAngle())

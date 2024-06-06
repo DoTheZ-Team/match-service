@@ -3,30 +3,31 @@ package com.justdo.glue.sticker.domain.poststicker.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.justdo.glue.sticker.domain.poststicker.PostSticker;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
 
 
 public class PostStickerRequest {
 
-    @Schema(description = "포스트의 id")
+    @Schema(description = "포스트의 id", example = "1")
     private Long postId;
 
-    @Schema(description = "스티커의 id")
+    @Schema(description = "스티커의 id", example = "2")
     private Long stickerId;
 
-    @Schema(description = "스티커의 xLocation")
+    @Schema(description = "스티커의 xLocation", example = "100")
+    @JsonProperty("xLocation")
     private int xLocation;
 
-    @Schema(description = "스티커의 yLocation")
+    @Schema(description = "스티커의 yLocation", example = "100")
+    @JsonProperty("yLocation")
     private int yLocation;
 
-    @Schema(description = "스티커의 scaleX")
+    @Schema(description = "스티커의 scaleX", example = "100")
     private double scaleX;
 
-    @Schema(description = "스티커의 scaleY")
+    @Schema(description = "스티커의 scaleY", example = "100")
     private double scaleY;
 
-    @Schema(description = "스티커의 rotation")
+    @Schema(description = "스티커의 rotation", example = "100")
     private double rotation;
 
     public Long getPostId() {
