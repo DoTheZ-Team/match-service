@@ -36,6 +36,8 @@ public class PostStickerQueryServiceImpl implements PostStickerQueryService {
     @Override
     public List<PostStickerItem> getPostStickersByPostId(Long postId) {
 
+        System.out.println(postId);
+
         Optional<List<PostSticker>> postStickersOptional = postStickerRepository.findByPostId(
                 postId);
 

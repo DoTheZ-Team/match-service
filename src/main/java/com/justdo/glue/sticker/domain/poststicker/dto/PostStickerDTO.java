@@ -15,7 +15,6 @@ public class PostStickerDTO {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    @Getter
     public static class PostStickerItem {
 
         @Schema(description = "포스트-스티커의 id", example = "1")
@@ -30,12 +29,10 @@ public class PostStickerDTO {
         @Schema(description = "스티커의 url", example = "https://glue-bucket-sticker.s3.ap-northeast-2.amazonaws.com/54728a63-ff4b-4b3e-aea8-18036491b97c.png")
         private String url;
 
-        @Schema(description = "스티커의 x_location", example = "100")
-        @JsonProperty(value = "xlocation")
+        @Schema(description = "스티커의 xLocation", example = "100")
         private int xLocation;
 
-        @Schema(description = "스티커의 y_location", example = "100")
-        @JsonProperty(value = "ylocation")
+        @Schema(description = "스티커의 yLocation", example = "100")
         private int yLocation;
 
         @Schema(description = "스티커의 scaleX", example = "100")
@@ -46,17 +43,52 @@ public class PostStickerDTO {
 
         @Schema(description = "스티커의 rotation", example = "100")
         private double rotation;
+
+        public Long getPostStickerId() {
+            return postStickerId;
+        }
+
+        public Long getPostId() {
+            return postId;
+        }
+
+        public Long getStickerId() {
+            return stickerId;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public int getxLocation() {
+            return xLocation;
+        }
+
+        public int getyLocation() {
+            return yLocation;
+        }
+
+        public double getScaleX() {
+            return scaleX;
+        }
+
+        public double getScaleY() {
+            return scaleY;
+        }
+
+        public double getRotation() {
+            return rotation;
+        }
     }
 
-    public static PostStickerDTO.PostStickerItem toPostStickerItem(PostSticker postSticker,
-            String url) {
+    public static PostStickerDTO.PostStickerItem toPostStickerItem(PostSticker postSticker, String url) {
         return PostStickerItem.builder()
                 .postStickerId(postSticker.getId())
                 .postId(postSticker.getPostId())
                 .stickerId(postSticker.getStickerId())
                 .url(url)
-                .xLocation(postSticker.getXLocation())
-                .yLocation(postSticker.getYLocation())
+                .xLocation(postSticker.getxLocation())
+                .yLocation(postSticker.getyLocation())
                 .scaleX(postSticker.getWidth())
                 .scaleY(postSticker.getHeight())
                 .rotation(postSticker.getAngle())
@@ -78,7 +110,6 @@ public class PostStickerDTO {
     }
 
     public static PostStickerProc toPostStickerProc(Long postStickerId) {
-
         return PostStickerProc.builder()
                 .postStickerId(postStickerId)
                 .createdAt(LocalDateTime.now())
