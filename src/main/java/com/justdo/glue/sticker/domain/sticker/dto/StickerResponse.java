@@ -36,7 +36,6 @@ public class StickerResponse {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    @Setter
     public static class StickerItem{
         private Long stickerId;
 

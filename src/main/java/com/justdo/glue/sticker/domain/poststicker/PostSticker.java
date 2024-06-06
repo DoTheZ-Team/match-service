@@ -4,11 +4,11 @@ import com.justdo.glue.sticker.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
 @Entity
 public class PostSticker extends BaseTimeEntity {
     @Id
@@ -35,4 +35,5 @@ public class PostSticker extends BaseTimeEntity {
 
     @Column(nullable = false, columnDefinition = "DOUBLE")
     private double angle;
+
 }

@@ -1,121 +1,121 @@
 package com.justdo.glue.sticker.domain.poststicker.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.justdo.glue.sticker.domain.sticker.dto.StickerResponse;
+import com.justdo.glue.sticker.domain.poststicker.PostSticker;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-
-import java.util.List;
+import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 public class PostStickerDTO {
-    @Schema(description = "스티커 포스트 정보 DTO")
+
+    @Schema(description = "스티커 포스트 & 스티커 URL 정보 DTO")
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    @Getter
-    @Setter
     public static class PostStickerItem {
 
-        @Schema(description = "포스트-스티커의 id")
-        @JsonProperty("postStickerId")
+        @Schema(description = "포스트-스티커의 id", example = "1")
         private Long postStickerId;
 
-        @Schema(description = "포스트의 id")
-        @JsonProperty("postId")
+        @Schema(description = "포스트의 id", example = "2")
         private Long postId;
 
-        @Schema(description = "스티커의 id")
-        @JsonProperty("stickerId")
+        @Schema(description = "스티커의 id", example = "3")
         private Long stickerId;
 
-        @Schema(description = "스티커의 x_location")
+        @Schema(description = "스티커의 url", example = "https://glue-bucket-sticker.s3.ap-northeast-2.amazonaws.com/54728a63-ff4b-4b3e-aea8-18036491b97c.png")
+        private String url;
+
+        @Schema(description = "스티커의 xLocation", example = "100")
         @JsonProperty("xLocation")
         private int xLocation;
 
-        @Schema(description = "스티커의 y_location")
+        @Schema(description = "스티커의 yLocation", example = "100")
         @JsonProperty("yLocation")
         private int yLocation;
 
-        @Schema(description = "스티커의 scaleX")
-        @JsonProperty("scaleX")
+        @Schema(description = "스티커의 scaleX", example = "100")
         private double scaleX;
 
-        @Schema(description = "스티커의 scaleY")
-        @JsonProperty("scaleY")
+        @Schema(description = "스티커의 scaleY", example = "100")
         private double scaleY;
 
-        @Schema(description = "스티커의 rotation")
-        @JsonProperty("rotation")
+        @Schema(description = "스티커의 rotation", example = "100")
         private double rotation;
+
+        public Long getPostStickerId() {
+            return postStickerId;
+        }
+
+        public Long getPostId() {
+            return postId;
+        }
+
+        public Long getStickerId() {
+            return stickerId;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public int getxLocation() {
+            return xLocation;
+        }
+
+        public int getyLocation() {
+            return yLocation;
+        }
+
+        public double getScaleX() {
+            return scaleX;
+        }
+
+        public double getScaleY() {
+            return scaleY;
+        }
+
+        public double getRotation() {
+            return rotation;
+        }
     }
 
-    public static PostStickerDTO.PostStickerItem toPostStickerItem(Long postStickerId, Long stickerId, Long postId, int xLocation, int yLocation, double scaleX, double scaleY, double rotation) {
+    public static PostStickerDTO.PostStickerItem toPostStickerItem(PostSticker postSticker, String url) {
         return PostStickerItem.builder()
-                .postStickerId(postStickerId)
-                .postId(postId)
-                .stickerId(stickerId)
-                .xLocation(xLocation)
-                .yLocation(yLocation)
-                .scaleX(scaleX)
-                .scaleY(scaleY)
-                .rotation(rotation)
-                .build();
-    }
-
-    @Schema(description = "포스트에 저장된 스티커 리스트 정보 DTO")
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Getter
-    @Setter
-    public static class PostStickerItems{
-        private List<PostStickerItem> postStickerItems;
-    }
-
-    public static PostStickerDTO.PostStickerItems toPostStickerItems(List<PostStickerItem> postStickerItems){
-        return PostStickerItems.builder()
-                .postStickerItems(postStickerItems)
-                .build();
-    }
-
-    @Schema(description = "url포함 스티커 포스트 정보 DTO")
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Getter
-    @Setter
-    public static class PostStickerUrlItem {
-
-        @Schema(description = "스티커 item")
-        private PostStickerItem postStickerItem;
-
-        @Schema(description = "스티커의 url")
-        private String url;
-    }
-
-    public static PostStickerDTO.PostStickerUrlItem toPostStickerUrlItem(PostStickerItem postStickerItem, String url) {
-        return PostStickerUrlItem.builder()
-                .postStickerItem(postStickerItem)
+                .postStickerId(postSticker.getId())
+                .postId(postSticker.getPostId())
+                .stickerId(postSticker.getStickerId())
                 .url(url)
+                .xLocation(postSticker.getXLocation())
+                .yLocation(postSticker.getYLocation())
+                .scaleX(postSticker.getWidth())
+                .scaleY(postSticker.getHeight())
+                .rotation(postSticker.getAngle())
                 .build();
     }
 
-    @Schema(description = "url 포함 스티커 포스트 정보 DTO")
+    @Schema(description = "포스트 스티커 요청 처리 응답 DTO")
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    @Setter
-    public static class PostStickerUrlItems {
+    public static class PostStickerProc {
 
-        @Schema(description = "url포함 포스트-스티커 리스트")
-        @JsonProperty("postStickerUrlItems")
-        private List<PostStickerUrlItem> postStickerUrlItems;
+        @Schema(description = "포스트 스티커 고유 아이디")
+        private Long postStickerId;
+
+        @Schema(description = "요청 처리 응답 생성 시간")
+        private LocalDateTime createdAt;
     }
 
-    public static PostStickerDTO.PostStickerUrlItems toPostStickerUrlItems(List<PostStickerUrlItem> postStickerUrlItems) {
-        return PostStickerUrlItems.builder()
-                .postStickerUrlItems(postStickerUrlItems)
+    public static PostStickerProc toPostStickerProc(Long postStickerId) {
+        return PostStickerProc.builder()
+                .postStickerId(postStickerId)
+                .createdAt(LocalDateTime.now())
                 .build();
     }
+
 }

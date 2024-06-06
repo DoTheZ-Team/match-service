@@ -1,7 +1,13 @@
 package com.justdo.glue.sticker.domain.poststicker.service;
 
-import com.justdo.glue.sticker.domain.poststicker.dto.PostStickerDTO;
+import static com.justdo.glue.sticker.domain.poststicker.dto.PostStickerDTO.*;
+
+import com.justdo.glue.sticker.domain.poststicker.dto.PostStickerRequest;
+import java.util.List;
 
 public interface PostStickerCommandService {
-    PostStickerDTO.PostStickerItem BuildPostSticker(Long postId, Long stickerId, int xLocation, int yLocation, double scaleX, double scaleY, double rotation);
+
+    PostStickerProc savePostSticker(PostStickerRequest postStickerRequest);
+
+    void saveAllPostSticker(List<PostStickerRequest> postStickerRequests);
 }
